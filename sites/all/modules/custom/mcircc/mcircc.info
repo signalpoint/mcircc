@@ -2,4 +2,5 @@ name = MCIRCC
 description = The MCIRCC Drupal module.
 core = 7.x
 package = Other
+stylesheets[all][] = mcircc.css
 
