@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Implements hook_form_alter().
+ */
+function mcircc_form_alter(&$form, &$form_state, &$form_id) {
+  global $user;
+  //drupal_set_message($form_id);
+  // Hide the input format section under body text areas for non admins.
+  if ($user->uid != 0 && !in_array('admin user', $user->roles) && isset($form['body'])) {
+    $form['body']['#after_build'][] = 'mcircc_form_body_after_build';
+  }
+}
+
+function mcircc_form_body_after_build(&$form) {
+  $form[LANGUAGE_NONE][0]['format']['#prefix'] = '<div style="display: none;">';
+  $form[LANGUAGE_NONE][0]['format']['#suffix'] = '</div>';
+  return $form;
+}
+
