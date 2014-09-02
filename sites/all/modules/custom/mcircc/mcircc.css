@@ -130,7 +130,7 @@ h1 {
 	margin-bottom: 5px;
 	padding-bottom: 10px;
 }
-.views-field.views-field-field-user-display-name {
+.view-member-directory .views-field.views-field-field-user-display-name {
 	padding: 4px 8px;
 	background-color: #ececec;
 	font-weight: bold;
