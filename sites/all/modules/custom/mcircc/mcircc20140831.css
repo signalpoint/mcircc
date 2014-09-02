@@ -1,0 +1,17 @@
+/**
+ * Administrative Debug Messages
+ */
+div.messages.status .krumo-root {
+  color: black;
+}
+div.messages.status a.krumo-name {
+  color: purple;
+}
+
+/**
+ * Events
+ */
+.view .date-nav-wrapper .date-heading h3 {
+  font-size: 0.8em;
+  line-height: 1.3em;
+}

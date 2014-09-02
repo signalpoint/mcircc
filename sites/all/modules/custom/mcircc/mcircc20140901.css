@@ -2,18 +2,20 @@
  * Administrative Debug Messages
  */
 div.messages.status .krumo-root {
-	color: black;
+  color: black;
 }
 div.messages.status a.krumo-name {
-	color: purple;
+  color: purple;
 }
+
 /**
  * Events
  */
 .view .date-nav-wrapper .date-heading h3 {
-	font-size: 0.8em;
-	line-height: 1.3em;
+  font-size: 0.8em;
+  line-height: 1.3em;
 }
+
 /* Header */
 #header {
 	border-top: 4px solid #51a9e7;
@@ -26,19 +28,19 @@ div.messages.status a.krumo-name {
 }
 #header ul.menu {
 	display: block;
-	background-color: #51a9e7;
+	background-color:#51a9e7;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 	float: right;
 	padding: 0 0.8em 0.2em;
-	margin-top: -3px;
+	margin-top:-3px;
 	height: 22px;
 }
 #header ul.menu li {
 	display: inline-block;
-	text-transform: uppercase;
-	font-size: .75em;
-	letter-spacing: .05em;
+	text-transform:uppercase;
+	font-size:.75em;
+	letter-spacing:.05em;
 }
 #header ul.menu li.first.leaf a {
 	border-right: 1px solid #fff;
@@ -52,8 +54,8 @@ div.messages.status a.krumo-name {
 }
 #header #block-search-form {
 	clear: both;
-	border-radius: 8px;
-	height: 30px;
+	border-radius:8px;
+	height:30px;
 }
 #header #block-search-form input.form-submit {
 	padding-top: 4px;
@@ -84,77 +86,58 @@ div.messages.status a.krumo-name {
 #header-menu {
 	border-bottom: 0px !important;
 }
-/* Sidebar */
-#sidebar-first {
-	margin-top:40px;
-}
-#sidebar-first h2 {
-	font-size: 1.2em;
-	text-transform: uppercase;
-	color: #ffcb05;
-	margin-bottom: 5px;
-}
-/* Main */
-#content-inside {
-	background: -moz-linear-gradient(center top, #fff 0%, #efefef 100%) repeat scroll 0 0 #fff;
-	padding-top:20px !important;
-}
-.breadcrumb {
-	font-size: .8em;
-	color: #00274c;
-	text-transform: uppercase;
-	padding-bottom:15px !important;
-}
-.breadcrumb a, .breadcrumb-separator {
-	color: #9f9f9f;
-}
-.breadcrumb a:hover {
-	color: #51a9e7;
+#footer {
+	background: url('/sites/all/modules/custom/mcircc/images/footer-tile.jpg') repeat-x 0 bottom !important;
 }
 h1, h2, h3, h4, h5, h6, .links ul li a, a.more, #comments ul.links li a, input[type="submit"], input[type="reset"], input[type="button"] {
-	text-shadow: none !important;
+	text-shadow:none !important;
 }
 h1 {
 	color: #00274c !important;
 	font-weight: normal;
 }
-/* Footer */
-#footer {
-	background: url('/sites/all/modules/custom/mcircc/images/footer-tile.jpg') repeat-x 0 bottom !important;
+#content-inside {
+    background: -moz-linear-gradient(center top , #fff 0%, #efefef 100%) repeat scroll 0 0 #fff;
 }
-/* Membership */
+#sidebar-first h2 {
+	font-size:1.2em;
+	text-transform:uppercase;
+	color:#ffcb05;
+	margin-bottom:5px;
+}
 .view-member-directory .views-row {
 	border: 1px solid #ececec;
-	border-radius: 8px;
+	border-radius:8px;
 	margin-top: 15px;
 	margin-bottom: 5px;
-	padding-bottom: 10px;
+	padding-bottom:10px;
 }
 .views-field.views-field-field-user-display-name {
-	padding: 4px 8px;
-	background-color: #ececec;
-	font-weight: bold;
-	border-top-left-radius: 8px;
-	border-top-right-radius: 8px;
-	font-size: 1.2em;
+	padding:4px 8px;
+	background-color:#ececec;
+	font-weight:bold;
+	border-top-left-radius:8px;
+	border-top-right-radius:8px;
+	font-size:1.2em;
 }
 .views-field.views-field-field-user-profile-picture {
-	float: left;
-	padding: 10px;
+	float:left;
+	padding:10px;
 }
 .views-field-field-user-profile-picture div.field-content a img {
-	border-radius: 8px;
+	border-radius:8px;
 }
-.views-field.views-field-field-user-titles, .views-field.views-field-field-user-address-organisation-name, .views-field.views-field-mail, .views-field.views-field-field-user-telephone, .views-field.views-field-field-user-biography, .views-field.views-field-field-user-subjects {
+
+.views-field.views-field-field-user-titles, .views-field.views-field-field-user-address-organisation-name, .views-field.views-field-mail, .views-field.views-field-field-user-telephone, .views-field.views-field-field-user-biography, .views-field.views-field-field-user-subjects  {
 	margin: 8px 20px 4px 130px;
 }
 .views-field.views-field-field-user-subjects {
-	text-transform: uppercase;
-	font-size: .85em;
-	letter-spacing: .05em;
+	text-transform:uppercase;
+	font-size:.85em;
+	letter-spacing:.05em;
 	background: url("/sites/all/modules/custom/mcircc/images/info-icon.png") no-repeat scroll left 7px transparent;
 	padding-left: 20px;
 	padding-top: 6px;
 	border-top: 1px solid #ececec;
-	margin-top: 12px;
+	margin-top:12px;
 }
