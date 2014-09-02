@@ -105,6 +105,13 @@ function corporateclean_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
+ * Implements template_preprocess_date_views_pager().
+ */
+function corporateclean_preprocess_date_views_pager(&$vars) {
+  $vars['nav_title'] = date('F, Y', strtotime($vars['nav_title']));
+}
+
+/**
  * Add javascript files for jquery slideshow.
  */
 if (theme_get_setting('slideshow_js','corporateclean')):

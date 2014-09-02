@@ -263,8 +263,6 @@
     <div id="footer-bottom-inside" class="container_12 clearfix">
     	<!-- #footer-bottom-left --> 
     	<div id="footer-bottom-left" class="grid_8">
-        
-            <?php print theme('links__system_secondary_menu', array('links' => $secondary_menu, 'attributes' => array('class' => array('secondary-menu', 'links', 'clearfix')))); ?>
             
             <?php print render($page['footer']); ?>
             
@@ -277,13 +275,5 @@
         </div><!-- EOF: #footer-bottom-right -->
        
     </div><!-- EOF: #footer-bottom-inside -->
-    
-    <!-- #credits -->   
-    <div id="credits" class="container_12 clearfix">
-        <div class="grid_12">
-        <p>Ported to Drupal by <a href="http://www.drupalizing.com">Drupalizing</a>, a Project of <a href="http://www.morethanthemes.com">More than (just) Themes</a>. Designed by <a href="http://www.kaolti.com/">Zsolt Kacso</a></p>
-        </div>
-    </div>
-    <!-- EOF: #credits -->
 
 </div><!-- EOF: #footer -->
