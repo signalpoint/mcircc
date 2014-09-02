@@ -1,20 +1,127 @@
 <?php
 
 /**
+* Implements hook_entity_info_alter().
+*/
+function mcircc_entity_info_alter(&$entity_info) {
+  // Add a custom display mode to the user entity, and profile2 entity.
+  $entity_info['user']['view modes']['mcircc_member_directory'] = array(
+    'label' => t('MCIRCC Member Directory'),
+    'custom settings' => TRUE
+  );
+  /*$entity_info['profile2']['view modes']['mcircc_member_directory'] = array(
+    'label' => t('MCIRCC Member Directory'),
+    'custom settings' => TRUE
+  );*/
+}
+
+/**
  * Implements hook_form_alter().
  */
 function mcircc_form_alter(&$form, &$form_state, &$form_id) {
+  
   global $user;
+  
   //drupal_set_message($form_id);
-  // Hide the input format section under body text areas for non admins.
-  if ($user->uid != 0 && !in_array('admin user', $user->roles) && isset($form['body'])) {
-    $form['body']['#after_build'][] = 'mcircc_form_body_after_build';
+  //dpm($form);
+  
+  // Attach an after build handler.
+  $form['#after_build'][] = 'mcircc_form_after_build';
+  
+  // Make alterations for regular users...
+  if (!mcircc_admin()) {
+    
+    // Hide the input format section under wysiwygs for non admins.
+    if (isset($form['body'])) {
+      $form['body']['#after_build'][] = 'mcircc_form_textarea_after_build';
+    }
+    if (isset($form['comment_body'])) {
+      $form['comment_body']['#after_build'][] = 'mcircc_form_textarea_after_build';
+    }
+    if (isset($form['field_user_biography'])) {
+      $form['field_user_biography']['#after_build'][] = 'mcircc_form_textarea_after_build';
+    }
   }
+  // Make alterations for admin users...
+  else {
+  }
+  
+  // Make alterations for all users.
+  switch ($form_id) {
+    case 'user_profile_form':
+      //dpm($form);
+      // Make the organisation element on the address field required.
+      $form['field_user_address'][LANGUAGE_NONE][0]['organisation_block']['organisation_name']['#required'] = TRUE;
+      // Change the links titles to "Academic Publish Articles" and "Michigan Experts Profile".
+      $form['field_user_research_interests'][LANGUAGE_NONE][0]['#default_value']['title'] = 'Academic Published Articles';
+      $form['field_user_research_interests'][LANGUAGE_NONE][1]['#default_value']['title'] = 'Michigan Experts Profile';
+      break;
+  }
+
 }
 
-function mcircc_form_body_after_build(&$form) {
+/**
+ *
+ */
+function mcircc_form_after_build($form, &$form_state) {
+  
+  //drupal_set_message($form['#form_id']);
+  //dpm($form);
+  
+  switch ($form['#form_id']) {
+    
+    case 'user_profile_form':
+      
+      //dpm($form);
+      
+      // Disable the link titles.
+      // @TODO - Not working.
+      $form['field_user_research_interests'][LANGUAGE_NONE][0]['title']['#disabled'] = TRUE;
+      $form['field_user_research_interests'][LANGUAGE_NONE][1]['title']['#disabled'] = TRUE;
+      
+      break;
+  }
+
+  return $form;
+}
+
+function mcircc_form_textarea_after_build(&$form) {
   $form[LANGUAGE_NONE][0]['format']['#prefix'] = '<div style="display: none;">';
   $form[LANGUAGE_NONE][0]['format']['#suffix'] = '</div>';
   return $form;
 }
 
+/**
+ * Returns true if the current user is considered an MCIRCC admin.
+ */
+function mcircc_admin() {
+  global $user;
+  $admin = FALSE;
+  if (
+    $user->uid != 0 &&
+    (
+      $user->uid == 1 ||
+      in_array('administrator', $user->roles) ||
+      in_array('mcircc administrator', $user->roles)
+    )
+  ) { $admin = TRUE; }
+  return $admin;
+}
+
+/**
+ * Given a Views result row, this will render a user's credentials next to their
+ * display name, separated by comma.
+ */
+function mcircc_user_display_name_with_credentials($row) {
+  //dpm($row);
+  if (!isset($row->field_field_user_display_name[0])) { return ''; }
+  $text = $row->field_field_user_display_name[0]['rendered']['#markup'];
+  if (!empty($row->field_field_user_credentials)) {
+    $credentials = array();
+    foreach ($row->field_field_user_credentials as $credential) {
+      $credentials[] = $credential['rendered']['#markup'];
+    }
+    $text .= ', ' . implode(',', $credentials);
+  }
+  return $text;
+}
