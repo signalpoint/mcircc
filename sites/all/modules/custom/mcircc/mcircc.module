@@ -1,13 +1,19 @@
 <?php
 
 /**
- * Implements hook_menu_alter();
+ * Implements hook_menu().
  */
-function mcircc_menu_alter(&$items) {
-  //dpm($items);
-  // Example - disable the page at node/add
-  //$items['node/%node/view']['access callback'] = 'mcircc_node_access';
-  //$items['node/%node/view']['access arguments'] = array('view', 1);
+function mcircc_menu() {
+  $items = array();
+  $items['admin/mcircc/user-add'] = array(
+    'title' => 'Create new user',
+    'type' => MENU_CALLBACK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mcircc_user_add_form'),
+    'access arguments' => array('administer users'),
+    'file' => 'mcircc.forms.inc'
+  );
+  return $items;
 }
 
 /**
@@ -19,10 +25,6 @@ function mcircc_entity_info_alter(&$entity_info) {
     'label' => t('MCIRCC Member Directory'),
     'custom settings' => TRUE
   );
-  /*$entity_info['profile2']['view modes']['mcircc_member_directory'] = array(
-    'label' => t('MCIRCC Member Directory'),
-    'custom settings' => TRUE
-  );*/
 }
 
 /**
@@ -87,19 +89,34 @@ function mcircc_form_alter(&$form, &$form_state, &$form_id) {
  */
 function mcircc_form_after_build($form, &$form_state) {
   
+  global $user;
+  
   //drupal_set_message($form['#form_id']);
   //dpm($form);
   
   switch ($form['#form_id']) {
     
-    case 'user_profile_form':
+    case 'user_register_form':
       
-      //dpm($form);
+      if (user_access('administer users')) {
+        $form['#prefix'] = isset($form['#prefix']) ? $form['#prefix'] : '';
+        $form['#prefix'] .= l(
+          'Click here to use the MCIRCC Administrator User Creation Form',
+          'admin/mcircc/user-add'
+        );
+      }
       
-      // Disable the link titles.
-      // @TODO - Not working.
-      $form['field_user_research_interests'][LANGUAGE_NONE][0]['title']['#disabled'] = TRUE;
-      $form['field_user_research_interests'][LANGUAGE_NONE][1]['title']['#disabled'] = TRUE;
+      
+      // When creating a new user, make a bunch of fields optional, and generate
+      // a random password.
+      // NOT WORKING AS EXPECTED
+      /*if ($form['#user']->uid == 0) {
+        $form['field_user_telephone'][LANGUAGE_NONE][0]['#required'] = FALSE;
+        $form['field_user_display_name'][LANGUAGE_NONE]['#required'] = FALSE;
+        $form['field_user_address'][LANGUAGE_NONE][0]['name_block']['first_name']['#required'] = FALSE;
+        $form['field_user_address'][LANGUAGE_NONE][0]['name_block']['last_name']['#required'] = FALSE;
+        
+      }*/
       
       break;
   }
@@ -111,6 +128,36 @@ function mcircc_form_textarea_after_build(&$form) {
   $form[LANGUAGE_NONE][0]['format']['#prefix'] = '<div style="display: none;">';
   $form[LANGUAGE_NONE][0]['format']['#suffix'] = '</div>';
   return $form;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function mcircc_block_info() {
+  $blocks['mcircc_user_welcome'] = array(
+    'info' => t('MCIRCC User Welcome'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function mcircc_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'mcircc_user_welcome':
+      $account = user_load($GLOBALS['user']->uid);
+      $name = isset($account->field_user_display_name['und'][0]['safe_value']) ?
+        $account->field_user_display_name['und'][0]['safe_value'] :
+        $account->name;
+      $block['content'] = "Welcome to the Virtual Institute, " . 
+        "<strong>" . l($name, "{$account->uid}") . "</strong> | " .
+        "<span class='mcircc_member'>Member Since</span> <strong>" . date('F Y', $account->created) . "</strong>";
+      break;
+  }
+  return $block;
 }
 
 /**
