@@ -177,4 +177,34 @@ if (theme_get_setting('slideshow_js','corporateclean')):
 
 endif;
 
+/**
+ * Implements template_preproccess_node().
+ */
+function corporateclean_preprocess_node(&$variables) {
+  if ($variables['node']->type == "file") {
+    // If there is one file attached, link the title directly to the file, other
+    // wise link to the node itself.
+    if (sizeof($variables['node']->field_files['und']) == 1) {
+      $file = file_load($variables['node']->field_files['und'][0]['fid']);
+      if ($file) {
+        $variables['mcircc_file_link'] = file_create_url($file->uri);
+      }
+    }
+    
+  }
+}
+
+/**
+ * Implements theme_aggregator_block_item().
+ */
+function corporateclean_aggregator_block_item($variables) {
+  // Display the external link to the item.
+  //dpm($variables['item']);
+  $parse = parse_url($variables['item']->link);
+  $host = str_replace('www.', '', $parse['host']);
+  return '<a href="' . check_url($variables['item']->link) . '">' .
+    check_plain($variables['item']->title) .
+  "</a><div class='source'>Source: $host</div>\n";
+}
+
 ?>
