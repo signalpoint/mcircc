@@ -117,8 +117,16 @@ function mcircc_form_textarea_after_build(&$form) {
  * Implements hook_node_access().
  */
 function mcircc_node_access($node, $op, $account) {
-  // Restrict access to all but a few nodes for anonymous users.
+
+  // Restrict access to all but a few nodes for anonymous users...
   if ($account->uid == 0 && $op == 'view') {
+    
+    // Grant access to certain content types.
+    $types = array('news', 'event', 'question', 'answer');
+    if (in_array($node->type, $types)) { return NODE_ACCESS_ALLOW; }
+    
+    // Create a list of node ids (by content type), that are OK to view, then
+    // grant access if the user is looking at that node.
     $nodes = array(
       'page' => array(
         1218 /* home page */
@@ -132,6 +140,21 @@ function mcircc_node_access($node, $op, $account) {
   }
   else { return NODE_ACCESS_IGNORE; }
   return NODE_ACCESS_DENY;
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function mcircc_node_view($node, $view_mode, $langcode) {
+  $types = array('news', 'event');
+  if (in_array($node->type, $types) && $view_mode == 'full') {
+    //drupal_set_message('<pre>' . print_r($node->body[LANGUAGE_NONE][0], true) . '</pre>');
+    $node->content['my_additional_field'] = array(
+    '#markup' => '<h3>' . $node->body[LANGUAGE_NONE][0]['safe_summary'] . '</h3>',
+    '#weight' => -999
+  );
+  }
+  
 }
 
 /**

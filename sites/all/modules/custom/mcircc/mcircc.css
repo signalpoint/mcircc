@@ -78,6 +78,7 @@ div.messages.status a.krumo-name {
 #header-menu ul.menu li a, #header-menu ul.menu li.expanded a {
 	padding-top: 7px !important;
 	padding-bottom: 5px !important;
+	font-size: 12px !important;
 }
 #header-menu ul.menu li a:hover, #header-menu ul.menu li.expanded a:hover {
 	color: #51a9e7 !important;
@@ -920,4 +921,8 @@ table th a.active {
 }
 .calendar-calendar td.empty {
 	color:#cccccc;
+}
+.node.node-news .content h3,
+.node.node-event .content h3 {
+  margin: 0em 0em 1em 0em;
 }
