@@ -106,11 +106,6 @@ div.messages.status a.krumo-name {
 	border-bottom: 0px !important;
 }
 /* Main */
-body.html.front.not-logged-in #main h1 {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-}
 #content-inside {
 /*	background: -moz-linear-gradient(center top, #fff 0%, #efefef 100%) repeat scroll 0 0 #fff;
 */
@@ -123,7 +118,7 @@ body.html.front.not-logged-in #main h1 {
 	border-left:1px solid #ececec;
 	padding-left:20px;
 	margin-top:5px;
-	background: url("/sites/all/modules/custom/mcircc/images/VIPbadge-top.png") no-repeat 461px bottom !important;
+	background: url("/sites/all/modules/custom/mcircc/images/VIPbadge-top.png") no-repeat 460px bottom !important;
 	padding-bottom:90px !important;
 	min-height:575px;
 }
@@ -213,7 +208,7 @@ h6 {
 pre {
 	white-space:normal !important;
 }
-body.page-dashboard h1, #footer-bottom-left.grid_8 div.region.region-footer div#block-block-1.block.block-block.contextual-links-region h2, #mcircc_dashboard .contextual-links-region.panel-pane.pane-block.pane-quicktabs-dashboard-news h2, #mcircc_dashboard .panel-pane.pane-block.pane-quicktabs-dashboard-news h2 {
+body.page-dashboard h1, #footer-bottom-left.grid_8 div.region.region-footer div#block-block-1.block.block-block.contextual-links-region h2, #mcircc_dashboard.panel-flexible.panels-flexible-3.clearfix div.panel-flexible-inside.panels-flexible-3-inside div.panels-flexible-row.panels-flexible-row-3-main-row.panels-flexible-row-last.clearfix div.inside.panels-flexible-row-inside.panels-flexible-row-3-main-row-inside.panels-flexible-row-inside-last.clearfix div.panels-flexible-region.panels-flexible-region-3-center.panels-flexible-region-first div.inside.panels-flexible-region-inside.panels-flexible-region-3-center-inside.panels-flexible-region-inside-first div.contextual-links-region.panel-pane.pane-block.pane-quicktabs-dashboard-news h2.pane-title {
 	display:none;
 }
 h2.pane-title {
@@ -672,13 +667,6 @@ ul.quicktabs-tabs li.active.first a, ul.quicktabs-tabs li.active a, ul.quicktabs
 	min-height:300px;
 	padding-top:15px;
 }
-#quicktabs-tabpage-dashboard_news-1 {
-  border-bottom: 1px dotted #ccc;
-  clear: both;
-  margin: 0 5px 10px 10px;
-  padding: 0 0 5px;
-}
-
 /* NEWS */
 body.page-news .region-content {
 	width:97%;

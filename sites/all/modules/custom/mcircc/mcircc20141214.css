@@ -106,11 +106,6 @@ div.messages.status a.krumo-name {
 	border-bottom: 0px !important;
 }
 /* Main */
-body.html.front.not-logged-in #main h1 {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-}
 #content-inside {
 /*	background: -moz-linear-gradient(center top, #fff 0%, #efefef 100%) repeat scroll 0 0 #fff;
 */
@@ -125,7 +120,6 @@ body.html.front.not-logged-in #main h1 {
 	margin-top:5px;
 	background: url("/sites/all/modules/custom/mcircc/images/VIPbadge-top.png") no-repeat 461px bottom !important;
 	padding-bottom:90px !important;
-	min-height:575px;
 }
 body.no-sidebars #main {
 	background: url("/sites/all/modules/custom/mcircc/images/VIPbadge-top.png") no-repeat 750px bottom !important;
@@ -169,7 +163,6 @@ h2, h2 a {
 	font-size:19px;
 	color: #51a9e7;
 	margin-bottom: 4px !important;
-	line-height:1.
 }
 h2 a:hover, h3 a:hover {
 	color: #00274c;
@@ -213,7 +206,7 @@ h6 {
 pre {
 	white-space:normal !important;
 }
-body.page-dashboard h1, #footer-bottom-left.grid_8 div.region.region-footer div#block-block-1.block.block-block.contextual-links-region h2, #mcircc_dashboard .contextual-links-region.panel-pane.pane-block.pane-quicktabs-dashboard-news h2, #mcircc_dashboard .panel-pane.pane-block.pane-quicktabs-dashboard-news h2 {
+body.page-dashboard h1, #footer-bottom-left.grid_8 div.region.region-footer div#block-block-1.block.block-block.contextual-links-region h2, #mcircc_dashboard.panel-flexible.panels-flexible-3.clearfix div.panel-flexible-inside.panels-flexible-3-inside div.panels-flexible-row.panels-flexible-row-3-main-row.panels-flexible-row-last.clearfix div.inside.panels-flexible-row-inside.panels-flexible-row-3-main-row-inside.panels-flexible-row-inside-last.clearfix div.panels-flexible-region.panels-flexible-region-3-center.panels-flexible-region-first div.inside.panels-flexible-region-inside.panels-flexible-region-3-center-inside.panels-flexible-region-inside-first div.contextual-links-region.panel-pane.pane-block.pane-quicktabs-dashboard-news h2.pane-title {
 	display:none;
 }
 h2.pane-title {
@@ -256,15 +249,14 @@ input.form-submit, a.button {
 	opacity:.8;
 }
 input.form-text, .form-textarea-wrapper textarea {
-/*    box-shadow: none !important;
-*/
+    box-shadow: none !important;
 	font-size:.9em !important;
 	color:#888 !important;
 }
 .form-item, .form-actions {
 	margin-bottom:.2em;
 }
-#user-profile-form.overlay-processed div div#edit-actions.form-actions.form-wrapper {
+div#edit-actions.form-actions.form-wrapper {
 	text-align:right;
 }
 div.vertical-tabs ul li.selected a, div.vertical-tabs ul li.selected a:hover, div.vertical-tabs ul li.selected a:focus, div.vertical-tabs ul li.selected a:active {
@@ -285,14 +277,6 @@ ul.tabs.secondary li.active a.active {
 }
 div.view-filters select#edit-type.form-select {
 	min-width:150px;
-}
-body.page-files input#edit-title.form-text.form-autocomplete {
-	height:15px;
-	padding:6px;
-	border-radius:8px;
-}
-body.page-files input.form-autocomplete {
-	background-position: 98% center !important;
 }
 /* Footer */
 #footer {
@@ -354,18 +338,17 @@ body.page-files input.form-autocomplete {
     pointer-events: none;
     text-transform:none;
 }
-#footer .view-statistics-block h4 {
+#footer .region.region-footer-second .view-statistics-block .number {
     font-family:Myriad Pro,"Lucida Grande","Lucida Sans Unicode",Segoe UI,Helvetica,Arial,sans-serif;
 	display: block !important;
-    font-size: 4em !important;
+    font-size: 4.5em;
     font-weight: 600;
-    line-height: .85em !important;
-    margin-bottom: 0 !important;
-    margin-top: 12px !important;
+    line-height: .85em;
+    margin-bottom: 0;
+    margin-top: 12px;
     pointer-events: none;
-	opacity: 0.8 !important;
+	opacity: 0.8;
 	color:#51a9e7;
-	text-transform:none !important;
 }
 #footer .view.view-statistics-block .node-readmore {
 	display:none;
@@ -443,6 +426,7 @@ body.page-members .views-field.views-field-field-user-titles, body.page-members 
 body.page-members .views-field.views-field-field-user-subjects {
 	text-transform: uppercase;
 	font-size: .85em;
+	letter-spacing: .05em;
 	background: url("/sites/all/modules/custom/mcircc/images/info-icon.png") no-repeat scroll left 7px transparent;
 	padding-left: 20px;
 	padding-top: 6px;
@@ -521,12 +505,6 @@ body.page-user .views-field-field-user-biography .field-content p {
 	margin-right:20px;
 	background: url("/sites/all/modules/custom/mcircc/images/yellow-bullet.png") no-repeat scroll 0 13px transparent;
 }
-#sidebar-first ul li ul {
-	padding-left:10px;
-}
-#sidebar-first ul li ul li {
-	border-bottom: 0px dotted #e7e7e7;
-}
 .region-sidebar-first .block .content, .region-sidebar-second .block .content {
     border: 0px solid #ffffff !important;
     border-radius: 0px !important;
@@ -535,12 +513,10 @@ body.page-user .views-field-field-user-biography .field-content p {
 	padding:0 10px 10px 0 !important;
 	margin-bottom:30px !important;
 }
-/*
 .date-display-single {
 	font-size:.95em;
 	color:#acacac;
 }
-*/
 .region-sidebar-first ul.menu li.expanded > a, .region-sidebar-second ul.menu li.expanded > a {
 	padding:0 !important;
 }
@@ -555,20 +531,7 @@ body.page-user .views-field-field-user-biography .field-content p {
 	padding-top: 5px !important;
 	padding-left:0 !important;
 }
-.item-list ul {
-	list-style:none;
-	margin-left:0 !important;
-}
-.item-list ul li {
-	padding-left:13px !important;
-	margin-left:0;
-	background: url("/sites/all/modules/custom/mcircc/images/yellow-bullet.png") no-repeat scroll 0 8px transparent;
-}
-.item-list ul li ul {
-	padding-left:10px;
-}
 */
-
 /* Dashboard Flex Panel 3 Overall */
 .panels-flexible-3 .panels-flexible-region .placeholder, .placeholder {
 	font-size:.95em;
@@ -576,6 +539,7 @@ body.page-user .views-field-field-user-biography .field-content p {
 .panels-flexible-3 .panels-flexible-region ul {
 	list-style:none;
 	margin-left:0;
+	color:#acacac;
 }
 .panels-flexible-3 .panels-flexible-region ul li {
 	margin-left:0;
@@ -637,11 +601,9 @@ body.page-user .views-field-field-user-biography .field-content p {
 	width:620px;	
 }
 /* Dashboard Flex Panel 3 Left - Dashboard News */
-/*
 .panels-flexible-3 .panels-flexible-region-inside.panels-flexible-region-inside-first {
 	padding-right: 2em !important;
 }
-*/
 ul.quicktabs-tabs li, ul.tabs.primary li a {
 	background-color:#ececec !important;
 	border-top-left-radius:8px;
@@ -672,14 +634,6 @@ ul.quicktabs-tabs li.active.first a, ul.quicktabs-tabs li.active a, ul.quicktabs
 	min-height:300px;
 	padding-top:15px;
 }
-#quicktabs-tabpage-dashboard_news-1 {
-  border-bottom: 1px dotted #ccc;
-  clear: both;
-  margin: 0 5px 10px 10px;
-  padding: 0 0 5px;
-}
-
-/* NEWS */
 body.page-news .region-content {
 	width:97%;
 }
@@ -688,11 +642,11 @@ body.page-news .region-content .item-list ul {
 	margin-bottom:0;
 	margin-left:0;
 }
-body.page-news .region-content .item-list ul li, body.page-events .region-content div.view.view-events {
+body.page-news .region-content .item-list ul li {
 	margin-left:0;
-	padding-left:90px;
+	padding-left:0;
 }
-body.page-news .region-content .field-type-image img, body.page-events .region-content .field-type-image img {
+body.page-news .region-content .field-type-image img {
 	position:absolute;
 	float:left;
 	margin-top:0;
@@ -702,95 +656,61 @@ body.page-news .region-content .field-type-image img, body.page-events .region-c
 	width:75px;
 	height:75px;
 	border-radius:4px;
-	margin-left:-90px;
 }
 body.node-type-news .field-type-image img {
 	margin-top:0;
 	background:none !important;
 	border:none !important;
 	padding:0 !important;
-	width:175px;
-	height:175px;
+	width:75px;
+	height:75px;
 	border-radius:4px;
 	float:left;
-}
-body.node-type-event .field-type-image img {
-	margin-top:0;
-	background:none !important;
-	border:none !important;
-	padding:0 !important;
-	width:175px;
-	height:175px;
-	border-radius:4px;
 }
 .sharethis-buttons {
 	float:right;
 }
-body.page-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-label, body.node-type-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-label, body.page-events .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-label, body.node-type-events .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-label {
+body.page-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-label, body.node-type-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-label {
 	clear:both;
 	font-size: 0.85em;
+    letter-spacing: 0.05em;
 	text-transform:uppercase;
 	margin-bottom:10px;
 }
-body.page-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.even, body.page-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.odd, body.node-type-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.even, body.node-type-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.odd, body.page-events .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.even, body.page-events .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.odd, body.node-type-events .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.even, body.node-type-events .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.odd {
+body.page-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.even, body.page-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.odd, body.node-type-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.even, body.node-type-news .field.field-name-field-tags.field-type-taxonomy-term-reference.field-label-inline.clearfix div.field-items div.field-item.odd {
 	float:left;
 	margin-right:8px;
 	font-size: 0.85em;
+    letter-spacing: 0.05em;
 	text-transform:uppercase;
 }
-body.page-news .region-content .submitted, body.page-news .region-content h2, body.page-events .region-content h2 {
+body.page-news .region-content .submitted, body.page-news .region-content h2 {
 	float: left;
+	margin-left:90px;
 	padding-right:20px;
-	line-height:1.2em;
 }
 body.page-news .region-content .submitted {
 	margin-bottom:10px;
-	margin-top:0;
 }
 body.page-news .region-content .links {
 	float: left;
 	margin-left:0;
 }
-body.page-news .region-content .links ul.links, body.page-news .region-content .links ul.links li, body.page-events .region-content .links ul.links, body.page-events .region-content .links ul.links li {
+body.page-news .region-content .links ul.links, body.page-news .region-content .links ul.links li {
 	margin-left:0;
 	padding-left:0;
 	padding-top:0;
 }
-body.page-events .region-content .links ul.links.inline {
-	float:left;
-	margin-bottom:0;
-	margin-top:0;
-}
 body.page-news .region-content .item-list ul li p {
 	clear:both;
 	margin-bottom:6px;
-	line-height:1.3em;
-}
-body.page-events .region-content .field-type-datetime .field-label, body.page-events .region-content .field-type-timefield .field-label, body.page-events .region-content p, body.node-type-events .region-content .field-type-datetime .field-label, body.node-type-event .region-content .field-type-timefield .field-label, body.node-type-event .region-content p, .field-type-datetime, .field-type-timefield, .field-type-addressfield, .field-name-field-links.field-type-link-field.field-label-above div.field-label, .field-name-field-news-category.field-type-taxonomy-term-reference.field-label-above div.field-label {
-	margin-top:6px;
-	line-height:1.3em;
-	clear:both;
-}
-body.page-events .region-content .field-type-datetime .field-label, body.page-events .region-content .field-type-timefield .field-label, .field-type-link-field .field-label, .field-name-field-news-category .field-label, .field-type-datetime.field-label-above .field-label, .field-type-timefield.field-label-above .field-label, .field-type-addressfield.field-label-above .field-label, .field-name-field-links.field-type-link-field.field-label-above div.field-label, .field-name-field-news-category.field-type-taxonomy-term-reference.field-label-above div.field-label {
-	color:#525252;
-}
-body.page-events .region-content p {
-	margin-bottom:6px;
-}
-#geofield-map-entity-node-3713-field-position.geofieldMap.geofield-processed-processed {
-	clear:both;
-	margin:20px 0;
-}
-body.page-events .region-content .views-row {
-}
-body.page-news a.feed-icon {
 }
 /*
 body.page-news .links ul li a, body.page-news a.more, body.page-news #comments ul.links li a, body.page-news input[type="submit"], body.page-news input[type="reset"], input[type="button"] {
 	background: #888 !important;
 }
 */
-body.page-news .region-content .node.node-teaser, body.page-events .region-content .node.node-teaser, body.page-files .region-content .node.node-teaser {
+body.page-news .region-content .node.node-teaser {
 	border-bottom: 1px dotted #ccc;
     margin-bottom: 10px;
     margin-right: 20px;
@@ -864,7 +784,7 @@ table th a.active {
 	color:#ffffff;
 }
 /* Files Listing */
-.view-files .submitted, body.page-taxonomy .submitted {
+.view-files .submitted {
   margin: 0em 0em 4px 0em;
 }
 /*
@@ -898,26 +818,4 @@ table th a.active {
 .view-files .views-exposed-widgets {
   margin-bottom: 2em;
   border-bottom: 1px dotted #666;
-}
-/* CALENDAR */
-.calendar-calendar .month-view .full tr td.today, .calendar-calendar .month-view .full tr.odd td.today, .calendar-calendar .month-view .full tr.even td.today {
-	border-left: 2px solid #51a9e7;
-	border-right: 2px solid #51a9e7;
-	color:#00274c;
-	font-weight:bold;
-}
-.calendar-calendar .month-view .full td.date-box.today {
-	border-color: #51a9e7;
-}
-.calendar-calendar .month-view .full tr td.single-day.today {
-	border-bottom: 2px solid #51a9e7;
-}
-.calendar-calendar .month-view .full td.single-day .inner div, .calendar-calendar .month-view .full td.single-day .inner div a, .calendar-calendar .month-view .full td.multi-day .inner div, .calendar-calendar .month-view .full td.multi-day .inner div a, .calendar-calendar .month-view .full td .inner div.calendar.monthview div, .calendar-calendar .month-view .full td .inner div.calendar.monthview div a, .calendar-calendar .week-view .full td.single-day .inner div, .calendar-calendar .week-view .full td.single-day .inner div a, .calendar-calendar .week-view .full td.multi-day .inner div, .calendar-calendar .week-view .full td.multi-day .inner div a, .calendar-calendar .week-view .full td .inner div.calendar.weekview div, .calendar-calendar .week-view .full td .inner div.calendar.weekview div a, .calendar-calendar .day-view .full td .inner div.view-item, .calendar-calendar .day-view .full td .inner div.calendar div, .calendar-calendar .day-view .full td .inner div.calendar div a {
-	line-height:1.2em;
-}
-.calendar-calendar .month-view .full td.single-day div.monthview, .calendar-calendar .week-view .full td.single-day div.weekview, .calendar-calendar .day-view .full td.single-day div.dayview {
-	background-color:#cbe5f8;
-}
-.calendar-calendar td.empty {
-	color:#cccccc;
 }
