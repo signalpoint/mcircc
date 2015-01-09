@@ -23,5 +23,10 @@
  */
 ?>
 <?php
-  print mcircc_user_display_name_with_credentials($row);
+  //dpm($row);
+  $output = mcircc_user_display_name_with_credentials($row);
+  if (isset($row->users_node_uid)) {
+    $output = l($output, "user/$row->users_node_uid");
+  }
+  print $output;
 ?>
