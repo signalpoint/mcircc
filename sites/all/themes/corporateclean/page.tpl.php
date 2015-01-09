@@ -172,7 +172,7 @@
 <div id="content">
 	<!-- #content-inside -->
     <div id="content-inside" class="container_12 clearfix">
-    
+        <?php if (theme_get_setting('breadcrumb_display','corporateclean')): print $breadcrumb; endif; ?>
         <?php if ($page['sidebar_first']) :?>
         <!-- #sidebar-first -->
         <div id="sidebar-first" class="grid_4">
@@ -188,7 +188,7 @@
         <div id="main" class="grid_12">    
         <?php } ?>
             
-            <?php if (theme_get_setting('breadcrumb_display','corporateclean')): print $breadcrumb; endif; ?>
+            <!-- breadcrumb used to live right here -->
             
             <?php if ($page['highlighted']): ?><div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
        
