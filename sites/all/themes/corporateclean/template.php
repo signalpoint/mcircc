@@ -199,12 +199,13 @@ function corporateclean_preprocess_node(&$variables) {
  */
 function corporateclean_aggregator_block_item($variables) {
   // Display the external link to the item.
-  //dpm($variables['item']);
+  //dpm($variables);
   $parse = parse_url($variables['item']->link);
   $host = str_replace('www.', '', $parse['host']);
   return '<a href="' . check_url($variables['item']->link) . '">' .
     check_plain($variables['item']->title) .
-  "</a><div class='source'>Source: $host</div>\n";
+  '</a><div>' . check_plain($variables['item']->description) .
+      "</div>\n";
 }
 
 ?>
