@@ -1,6 +1,16 @@
 <?php
 
 /**
+ * Implements hook_menu_alter();
+ */
+function mcircc_menu_alter(&$items) {
+  //dpm($items);
+  // Example - disable the page at node/add
+  //$items['node/%node/view']['access callback'] = 'mcircc_node_access';
+  //$items['node/%node/view']['access arguments'] = array('view', 1);
+}
+
+/**
 * Implements hook_entity_info_alter().
 */
 function mcircc_entity_info_alter(&$entity_info) {
@@ -101,6 +111,27 @@ function mcircc_form_textarea_after_build(&$form) {
   $form[LANGUAGE_NONE][0]['format']['#prefix'] = '<div style="display: none;">';
   $form[LANGUAGE_NONE][0]['format']['#suffix'] = '</div>';
   return $form;
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function mcircc_node_access($node, $op, $account) {
+  // Restrict access to all but a few nodes for anonymous users.
+  if ($account->uid == 0 && $op == 'view') {
+    $nodes = array(
+      'page' => array(
+        1218 /* home page */
+      )
+    );
+    foreach ($nodes as $bundle => $nids) {
+      if ($node->type == $bundle && in_array($node->nid, $nids)) {
+        return NODE_ACCESS_ALLOW;
+      }
+    }
+  }
+  else { return NODE_ACCESS_IGNORE; }
+  return NODE_ACCESS_DENY;
 }
 
 /**
