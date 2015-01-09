@@ -56,6 +56,18 @@ function mcircc_form_alter(&$form, &$form_state, &$form_id) {
       $form['field_user_research_interests'][LANGUAGE_NONE][0]['#default_value']['title'] = 'Academic Published Articles';
       $form['field_user_research_interests'][LANGUAGE_NONE][1]['#default_value']['title'] = 'Michigan Experts Profile';
       break;
+    case 'question_node_form':
+      // On new nodes, check the notification box by default.
+      if (!$form['nid']['#value']) {
+        $form['field_notify_p'][LANGUAGE_NONE]['#default_value'] = 1;
+      }
+      break;
+    case 'file_node_form':
+      $form['title']['#description'] = t(
+        'Enter an <em>optional</em> title for your document. This helps others easily locate your
+        file through search, and helps others better understand the file\'s
+        content at a glance. If left blank, a title will automatically be generated for you.');
+      break;
   }
 
 }
