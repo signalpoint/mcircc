@@ -5,9 +5,17 @@
     	<!-- #header-inside-left -->
         <div id="header-inside-left" class="grid_8">
             
-            <?php if ($logo): ?>
-            <a href="<?php print check_url($front_page); ?>" title="<?php print t('Home'); ?>"><img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" /></a>
-            <?php endif; ?>
+            <?php
+              if ($logo):
+                $front_page_path = check_url($front_page);
+                if (user_is_logged_in()) {
+                  $front_page_path = '/dashboard';
+                }
+            ?>
+            <a href="<?php print $front_page_path; ?>" title="<?php print t('Home'); ?>"><img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" /></a>
+            <?php
+              endif;
+            ?>
      
             <?php if ($site_name || $site_slogan): ?>
             <div class="clearfix">
@@ -150,7 +158,8 @@
     
     	<div class="grid_12">
             <div id="navigation" class="clearfix">
-            <?php if ($page['navigation']) :?>
+            <?php if (user_is_logged_in()) { ?>
+            <?php if ($page['navigation']): ?>
             <?php print drupal_render($page['navigation']); ?>
             <?php else :
             if (module_exists('i18n_menu')) {
@@ -159,7 +168,7 @@
             $main_menu_tree = menu_tree(variable_get('menu_main_links_source', 'main-menu')); 
             }
             print drupal_render($main_menu_tree);
-            endif; ?>
+            endif; } else { print '<ul class="menu"><li>&nbsp;</li></ul>'; } ?>
             </div>
         </div>
         
