@@ -138,6 +138,10 @@ function mcircc_block_info() {
     'info' => t('MCIRCC User Welcome'),
     'cache' => DRUPAL_NO_CACHE,
   );
+  $blocks['mcircc_new_users'] = array(
+    'info' => t('MCIRCC Who is new'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
   return $blocks;
 }
 
@@ -156,6 +160,21 @@ function mcircc_block_view($delta = '') {
         "<strong>" . l($name, "{$account->uid}") . "</strong> | " .
         "<span class='mcircc_member'>Member Since</span> <strong>" . date('F Y', $account->created) . "</strong>";
       break;
+    case 'mcircc_new_users':
+      // Retrieve a list of new users who have subsequently accessed the site successfully.
+      $results = db_query_range('
+        select
+          u.uid, fudm.field_user_display_name_value
+        from {users} u
+        INNER JOIN {field_revision_field_user_display_name} fudm ON u.uid = fudm.entity_id
+        ORDER BY u.created LIMIT 5;', 0, variable_get('user_block_whois_new_count', 5))->fetchAll();
+      $items = array();
+      foreach ($results as $result) {
+        $items[] = l($result->field_user_display_name_value, "user/{$result->uid}");
+      }
+      $block['subject'] = t('Who\'s new');
+      $block['content'] = theme('item_list', array('items' => $items));
+      break;
   }
   return $block;
 }
@@ -167,11 +186,6 @@ function mcircc_node_access($node, $op, $account) {
 
   // Restrict access to all but a few nodes for anonymous users...
   if ($account->uid == 0 && $op == 'view') {
-    
-    // Grant access to certain content types.
-    $types = array('news', 'event', 'question', 'answer');
-    if (in_array($node->type, $types)) { return NODE_ACCESS_ALLOW; }
-    
     // Create a list of node ids (by content type), that are OK to view, then
     // grant access if the user is looking at that node.
     $nodes = array(
@@ -193,15 +207,27 @@ function mcircc_node_access($node, $op, $account) {
  * Implements hook_node_view().
  */
 function mcircc_node_view($node, $view_mode, $langcode) {
+  
+  global $user;
+  
+  // Show the body summary as a sub title on news and events.
   $types = array('news', 'event');
   if (in_array($node->type, $types) && $view_mode == 'full') {
-    //drupal_set_message('<pre>' . print_r($node->body[LANGUAGE_NONE][0], true) . '</pre>');
     $node->content['my_additional_field'] = array(
-    '#markup' => '<h3>' . $node->body[LANGUAGE_NONE][0]['safe_summary'] . '</h3>',
-    '#weight' => -999
-  );
+      '#markup' => '<h3>' . $node->body[LANGUAGE_NONE][0]['safe_summary'] . '</h3>',
+      '#weight' => -999
+    );
   }
-  
+  // On the home page, show authenticated users a message with a link to the
+  // dashboard.
+  else if ($view_mode == 'full' && $node->nid == 1218 && user_is_logged_in()) {
+    $node->content['dashboard_link'] = array(
+      '#markup' => '<div class="messages status">' .
+        l('Click here', 'dashboard') . ' to view your dashboard.' .
+      '</div>',
+      '#weight' => -999
+    );
+  }
 }
 
 /**
