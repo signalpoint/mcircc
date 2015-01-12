@@ -164,9 +164,11 @@ function mcircc_block_view($delta = '') {
       // Retrieve a list of new users who have subsequently accessed the site successfully.
       $results = db_query_range('
         select
-          u.uid, fudm.field_user_display_name_value
+          u.uid, fudm.field_user_display_name_value, ur.rid
         from {users} u
-        INNER JOIN {field_revision_field_user_display_name} fudm ON u.uid = fudm.entity_id
+        INNER JOIN {field_data_field_user_display_name} fudm ON u.uid = fudm.entity_id
+        LEFT OUTER JOIN {users_roles} ur ON u.uid = ur.uid
+        WHERE ur.rid NOT IN (3,4,5) OR ur.rid IS NULL
         ORDER BY u.created LIMIT 5;', 0, variable_get('user_block_whois_new_count', 5))->fetchAll();
       $items = array();
       foreach ($results as $result) {
