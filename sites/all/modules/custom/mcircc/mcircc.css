@@ -502,7 +502,11 @@ body.page-user .views-field-field-user-biography .field-content p {
 /* Left Sidebar */
 #sidebar-first {
 	margin-top:10px;
-	width:28%;
+}
+@media (min-width: 980px) {
+  #sidebar-first {
+    width:28%;
+  }
 }
 #sidebar-first h2 {
 	font-size: 1.2em;
@@ -670,11 +674,9 @@ ul.quicktabs-tabs li.active.first a, ul.quicktabs-tabs li.active a, ul.quicktabs
 	border-bottom-right-radius:8px;
 	border-top-right-radius:8px;
 	background-color:#fff;
-	min-height:300px;
 	padding-top:15px;
 }
 #quicktabs-tabpage-dashboard_news-1 {
-  border-bottom: 1px dotted #ccc;
   clear: both;
   margin: 0 5px 10px 10px;
   padding: 0 0 5px;
@@ -933,3 +935,10 @@ table th a.active {
 #block-menu-menu-main-menu-anonymous h2 {
   margin: 0em !important;
 }
+@media (max-width: 980px) and (min-width: 320px) {
+  #mcircc_dashboard .panels-flexible-region-first,
+  #mcircc_dashboard .panels-flexible-region-last {
+    width: 100%;
+  }
+}
+
