@@ -202,7 +202,7 @@ function corporateclean_aggregator_block_item($variables) {
   //dpm($variables);
   $parse = parse_url($variables['item']->link);
   $host = str_replace('www.', '', $parse['host']);
-  return '<a href="' . check_url($variables['item']->link) . '">' .
+  return '<a href="' . check_url($variables['item']->link) . '" target="_blank">' .
     check_plain($variables['item']->title) .
   '</a><div>' . check_plain($variables['item']->description) .
       "</div>\n";
