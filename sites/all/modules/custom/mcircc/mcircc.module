@@ -231,6 +231,19 @@ function mcircc_node_view($node, $view_mode, $langcode) {
 }
 
 /**
+ * Implements hook_user_operations().
+ */
+function mcircc_user_operations() {
+  $operations = array(
+    'mcircc_resend_welcome_email' => array(
+      'label' => t('Re-send welcome e-mail'),
+      'callback' => 'mcircc_resend_welcome_email',
+    )
+  );
+  return $operations;
+}
+
+/**
  * Returns true if the current user is considered an MCIRCC admin.
  */
 function mcircc_admin() {
@@ -264,3 +277,17 @@ function mcircc_user_display_name_with_credentials($row) {
   }
   return $text;
 }
+
+/**
+ *
+ */
+function mcircc_resend_welcome_email($accounts) {
+  $accounts = user_load_multiple($accounts);
+  foreach ($accounts as $account) {
+    watchdog('mcircc', 'Re-sent welcome e-mail to %mail.', array('%mail' => $account->mail));
+    drupal_set_message(t('Re-sent welcome e-mail to %mail', array('%mail' => $account->mail)));
+    $op = 'register_admin_created'; // @see https://api.drupal.org/api/drupal/modules!user!user.module/function/_user_mail_notify/7
+    _user_mail_notify($op, $account); 
+  }
+}
+
