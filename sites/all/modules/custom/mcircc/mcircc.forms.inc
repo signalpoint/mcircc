@@ -4,6 +4,7 @@
  * The vendor's add customer form.
  */
 function mcircc_user_add_form($form, &$form_state) {
+  $form['#prefix'] = '<div class="messages warning">Use this form to create a new user and notify them via e-mail.</div>';
   $form['mail'] = array(
     '#type' => 'textfield',
     '#title' => 'E-mail address',
@@ -60,7 +61,7 @@ function mcircc_user_add_form_submit($form, &$form_state) {
   }
   else {
     _user_mail_notify('register_admin_created', $account);
-    drupal_set_message('Created new account for user, and notified them via e-mail! ' . $mail);
+    drupal_set_message('Created new user account and notified them via e-mail: ' . $mail);
   }
 
 }
