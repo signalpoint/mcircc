@@ -922,7 +922,14 @@ table th a.active {
 .calendar-calendar td.empty {
 	color:#cccccc;
 }
+
 .node.node-news .content h3,
 .node.node-event .content h3 {
   margin: 0em 0em 1em 0em;
+}
+.region-banner #block-mcircc-mcircc-user-welcome {
+  text-align: center;
+}
+#block-menu-menu-main-menu-anonymous h2 {
+  margin: 0em !important;
 }
