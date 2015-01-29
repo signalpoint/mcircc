@@ -1,0 +1,12 @@
+diff --git a/sites/all/modules/multifield/multifield.field.inc b/sites/all/modules/multifield/multifield.field.inc
+index a10305d..b93b0e8 100644
+--- a/sites/all/modules/multifield/multifield.field.inc
++++ b/sites/all/modules/multifield/multifield.field.inc
+@@ -779,6 +779,7 @@ function multifield_field_formatter_view($entity_type, $entity, $field, $instanc
+   $settings = $display['settings'];
+ 
+   foreach ($items as $delta => $item) {
++    if (!isset($item['#pseudo_entity'])) { continue; }
+     $element[$delta] = field_attach_view('multifield', $item['#pseudo_entity'], $settings['view_mode'], $langcode);
+   }
+ 

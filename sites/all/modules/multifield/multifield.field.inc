@@ -779,6 +779,7 @@ function multifield_field_formatter_view($entity_type, $entity, $field, $instanc
   $settings = $display['settings'];
 
   foreach ($items as $delta => $item) {
+    if (!isset($item['#pseudo_entity'])) { continue; }
     $element[$delta] = field_attach_view('multifield', $item['#pseudo_entity'], $settings['view_mode'], $langcode);
   }
 
