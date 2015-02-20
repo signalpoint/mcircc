@@ -166,12 +166,13 @@ function answers_form_alter(&$form, $form_state, $form_id) {
 
 /**
  * Implements hook_node_view().
- * 
+ *
  * Add the view for answers to a question.
  * Add the new answer form.
  * Add the operations links to an answer node.
  */
 function answers_node_view($node, $view_mode = 'full') {
+  module_load_include('inc', 'answers', 'includes/answers.lock');
   if ($node->type == 'answers_question') {
 
     if ($view_mode == 'full') {
@@ -183,9 +184,7 @@ function answers_node_view($node, $view_mode = 'full') {
           '#weight' => -100,
         );
       }
-
       if (answers_create_answer_permission_p($node)) {
-        module_load_include('inc', 'node', 'node.pages');
         global $user;
         // Create an empty placeholder for an answer node.
         $node_answer = array(
@@ -197,9 +196,11 @@ function answers_node_view($node, $view_mode = 'full') {
 
         // Set the node reference field of the answer to point to its question.
         $node_answer['answers_related_question'][LANGUAGE_NONE][0]['target_id'] = $node->nid;
+        $form_state['build_info']['args'][] = (object)$node_answer;
+        form_load_include($form_state, 'inc', 'node', 'node.pages');
 
         // Create a form to edit/save the placeholder answer.
-        $answer_form = drupal_get_form('answers_answer_node_form', (object) $node_answer);
+        $answer_form = drupal_build_form('answers_answer_node_form', $form_state);
 
         // Add the form to the question page.
         $node->content['new_answer_form'] = $answer_form;
@@ -227,13 +228,13 @@ function answers_node_view($node, $view_mode = 'full') {
   if ($view_mode == 'answers_full_node' && $node->type == 'answers_answer') {
     if (node_access('update', $node)) {
       $node->content['links']['#links']['answers-answer-edit'] = array(
-        'title' => 'Edit',
+        'title' => t('Edit'),
         'href' => 'node/' . $node->nid . '/edit',
       );
     }
     if (node_access('delete', $node)) {
       $node->content['links']['#links']['answers-answer-delete'] = array(
-        'title' => 'Delete',
+        'title' => t('Delete'),
         'href' => 'node/' . $node->nid . '/delete',
       );
     }
@@ -241,10 +242,31 @@ function answers_node_view($node, $view_mode = 'full') {
 }
 
 /**
+ * Implements hook_exit.
+ */
+function answers_exit() {
+  $router_item  = menu_get_object();
+  if (isset($router_item) && $router_item->type == "answers_question") {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+          ->entityCondition('bundle', 'answers_answer')
+          ->fieldCondition('answers_related_question', 'target_id', $router_item->nid);
+    $result = $query->execute();
+    if (isset($result['node'])) {
+      foreach ($result['node'] as $answer) {
+        node_tag_new($answer);
+      }
+	}
+  }
+}
+
+/**
  * Return NULL if the current user does not have permission to create an answer to the question.
  */
 function answers_create_answer_permission_p($question) {
+  module_load_include('inc', 'answers', 'includes/answers.lock');
   global $user;
+
   $locked = answers_question_locked_p($question);
 
   return (node_access('create', 'answers_answer')
@@ -277,7 +299,7 @@ function answers_all_questions() {
     ->entityCondition('bundle', 'answers_question')
     ->execute();
 
-  return entity_load('node', array_keys($entities['node']));
+  return (empty($entities)) ? $entities : entity_load('node', array_keys($entities['node']));
 }
 
 /**
@@ -320,7 +342,7 @@ function answers_views_api() {
 
 /**
  * Implements hook_theme_registry_alter().
- * 
+ *
  * See: http://www.metachunk.com/blog/adding-module-path-drupal-7-theme-registry
  */
 function answers_theme_registry_alter(&$theme_registry) {
@@ -368,31 +390,39 @@ function answers_preprocess_comment_wrapper(&$vars) {
 }
 
 /**
+ * Implements hook_views_data().
+ */
+function answers_views_data() {
+
+  $data['views']['answers_count'] = array(
+    'title' => t('Answers Count'),
+    'help' => t('Shows the number of answers to a question.'),
+    'area' => array(
+      'handler' => 'views_handler_answers_count',
+    ),
+  );
+
+  $data['answers']['table']['group'] = t('Answers');
+  $data['answers']['table']['join'] = array(
+    '#global' => array(),
+  );
+
+  $data['answers']['new_answers'] = array(
+    'title' => t('Has new content'),
+    'field' => array(
+      'handler' => 'answers_views_handler_new_content',
+      'help' => t('Show a marker if the question is new or has new answers since last access.'),
+    ),
+  );
+
+  return $data;
+} 
+
+/**
  * Helper function for preprocess hooks.
  */
 function _answers_check_type_theming_suggestion(&$vars, $theme_hook_suggestions) {
   if ($vars['node']->type == 'answers_answer' || $vars['node']->type == 'answers_question') {
     $vars['theme_hook_suggestions'][] = $theme_hook_suggestions;
-  }
-}
-
-/**
- * Provide text to be used in the answers header.
- */
-function _answers_question_answers_header($view) {
-
-  $view = views_get_current_view();
-  $n = $view->total_rows;
-
-  switch ($n) {
-    case 0:
-      return (t("No answers yet."));
-
-    case 1:
-      return (t("1 answer"));
-
-    default:
-      return ($n . " " . t("answers"));
-
   }
 }

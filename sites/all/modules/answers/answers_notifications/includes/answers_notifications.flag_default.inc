@@ -9,11 +9,12 @@
  */
 function answers_notifications_flag_default_flags() {
   $flags = array();
+  // Exported flag: "Subscribe".
   $flags['subscribe_answers_notifications'] = array(
-    'content_type' => 'node',
+    'entity_type' => 'node',
     'title' => 'Subscribe',
     'global' => '0',
-	'types' => array(
+    'types' => array(
       0 => 'answers_question',
     ),
     'flag_short' => 'Subscribe',
@@ -24,7 +25,19 @@ function answers_notifications_flag_default_flags() {
     'unflag_message' => 'You have unsubscribed',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
-    'roles' => array(
+    'weight' => 0,
+    'show_on_form' => TRUE,
+    'access_author' => '',
+    'show_on_teaser' => 0,
+    'show_contextual_link' => 0,
+    'i18n' => 0,
+    'module' => 'answer_notifications',
+    'locked' => array(
+      'name' => 'name',
+    ),
+    'api_version' => 3,
+    'status' => TRUE,
+    'import_roles' => array(
       'flag' => array(
         0 => '2',
       ),
@@ -32,19 +45,9 @@ function answers_notifications_flag_default_flags() {
         0 => '2',
       ),
     ),
-    'weight' => 0,
-    'show_on_form' => TRUE,
-    'access_author' => '',
-    'show_on_page' => TRUE,
-    'show_on_teaser' => 0,
-    'show_contextual_link' => 0,
-    'i18n' => 0,
-    'module' => 'answer_notifications',
-    'locked' => array(
-      0 => 'name',
+    'show_in_links' => array(
+      'full' => TRUE,
     ),
-    'api_version' => 2,
-    'status' => TRUE,
   );
   return $flags;
 }

@@ -76,6 +76,15 @@ function answers_install() {
   variable_set('comment_subject_field_answers_answer', 0);
 }
 
+ /**
+  * Implements hook_enable().
+  */
+function answers_enable() {
+//  $permissions = array('create answers_question content', 'create answers_answer content');
+//  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, $permissions);
+//  drupal_set_message(t('Answers: Allowing authenticated users to ask new questions and provide new answers.'));
+}
+ 
 /**
  * Implements hook_uninstall().
  *

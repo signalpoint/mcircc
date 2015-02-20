@@ -91,7 +91,16 @@ function _answers_set_questions_view(&$view) {
   );
   $handler->display->display_options['style_options']['override'] = TRUE;
   $handler->display->display_options['style_options']['sticky'] = TRUE;
-  $handler->display->display_options['style_options']['empty_table'] = 0;
+
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['label'] = 'No Questions Blurb';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = '<em>No questions have been entered yet</em>';
+  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+
   /* Relationship: Entity Reference: Referencing entity */
   $handler->display->display_options['relationships']['reverse_answers_related_question_node']['id'] = 'reverse_answers_related_question_node';
   $handler->display->display_options['relationships']['reverse_answers_related_question_node']['table'] = 'node';
@@ -263,13 +272,11 @@ function _answers_set_question_answers_view(&$view) {
   $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['view_mode'] = 'answers_full_node';
   $handler->display->display_options['row_options']['comments'] = TRUE;
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['empty'] = TRUE;
-  $handler->display->display_options['header']['area']['content'] = '<?php print _answers_question_answers_header(views_get_current_view()); ?>';
-  $handler->display->display_options['header']['area']['format'] = 'php_code';
+
+  /* Header: Global: Answers Count */
+  $handler->display->display_options['header']['answers_count']['id'] = 'answers_count';
+  $handler->display->display_options['header']['answers_count']['table'] = 'views';
+  $handler->display->display_options['header']['answers_count']['field'] = 'answers_count';
 
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';

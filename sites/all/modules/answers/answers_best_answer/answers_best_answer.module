@@ -106,7 +106,52 @@ function answers_best_answer_question_best_answer($question) {
 }
 
 /**
+ * Implements hook_flag_flag().
+ *
+ * Flag API 3
+ */
+function answers_best_answer_flag_flag($flag, $content_id, $account, $flagging)  {
+  if ($flag->name == "best_answer") {
+
+    $flagged_answer = entity_metadata_wrapper('node', $content_id);
+    $question = answers_answer_question($content_id);
+    $answers = answers_question_answers($question);
+
+    // Unflag a prior best answer if one exists.
+    $old_answer = NULL;
+      foreach ($answers as $answer) {
+      if (($answer->nid != $content_id) && $flag->is_flagged($answer->nid)) {
+        $flag->flag('unflag', $answer->nid);
+        $old_answer = $answer;
+      }
+    }
+    answers_question_lock_set($question, 'answers_best_answer');
+    module_invoke_all('answers_best_answer_set', $question, $flagged_answer->value(), $old_answer);
+  }
+}
+
+/**
+ * Implements hook_flag_unflag().
+ *
+ * Flag API 3
+ */
+function answers_best_answer_flag_unflag($flag, $content_id, $account, $flagging)  {
+  if ($flag->name == "best_answer") {
+
+    $flagged_answer = entity_metadata_wrapper('node', $content_id);
+    $question = answers_answer_question($content_id);
+
+    if (!answers_best_answer_question_best_answer($question)) {
+      answers_question_lock_unset($question, 'answers_best_answer');
+      module_invoke_all('answers_best_answer_unset', $question, $flagged_answer->value());
+    }
+  }
+}
+
+/**
  * Implements hook_flag().
+ *
+ * Flag API 2
  */
 function answers_best_answer_flag($op, $flag, $content_id, $account, $fcid) {
   if ($flag->name == "best_answer") {
@@ -138,10 +183,70 @@ function answers_best_answer_flag($op, $flag, $content_id, $account, $fcid) {
  * Implements hook_flag_default_flags().
  *
  * Defines default flag for marking the best answer for a question.
+ *
+ * Test which version of flags is being used and define the flag appropriately.
  */
 function answers_best_answer_flag_default_flags() {
   $flags = array();
-  $flags['best_answer'] = array(
+  // Exported flag: "Best Answer".
+  $flags['best_answer'] = ((FLAG_API_VERSION == 3) ? 
+    answers_best_answer_best_answer_flag_api3() : 
+	answers_best_answer_best_answer_flag_api2()
+  );
+  return $flags;
+}
+
+function answers_best_answer_best_answer_flag_api3() {
+$flag = 
+array(
+  'entity_type' => 'node',
+  'title' => 'Best Answer',
+  'global' => TRUE,
+  'types' => array(
+    0 => 'answers_answer',
+  ),
+  'flag_short' => 'Best',
+  'flag_long' => 'Select as the best answer',
+  'flag_message' => 'Selected as the best answer.',
+  'unflag_short' => 'Unbest',
+  'unflag_long' => 'Unselect as the best answer',
+  'unflag_message' => 'Unselected as the best answer.',
+  'unflag_denied_text' => '',
+  'link_type' => 'toggle',
+  'weight' => 0,
+  'show_in_links' => array(
+    'full' => 0,
+    'teaser' => 0,
+    'rss' => 0,
+    'search_index' => 0,
+    'search_result' => 0,
+    'answers_full_node' => 0,
+    'token' => 0,
+  ),
+  'show_as_field' => 0,
+  'show_on_form' => FALSE,
+  'access_author' => '',
+  'show_contextual_link' => 0,
+  'i18n' => 0,
+  'module' => 'answers_best_answer',
+  'locked' => array(
+    'name' => 'name',
+    'global' => 'global',
+    'types' => 'types',
+    'show_on_page' => 'show_on_page',
+    'show_on_form' => 'show_on_form',
+    'status' => 'status',
+  ),
+  'show_on_page' => FALSE,
+  'status' => TRUE,
+  'api_version' => 3,
+);
+return $flag;
+}
+
+function answers_best_answer_best_answer_flag_api2() {
+  $flag = 
+    $flags['best_answer'] = array(
     'content_type' => 'node',
     'name' => 'best_answer',
     'title' => 'Best Answer',
@@ -173,7 +278,8 @@ function answers_best_answer_flag_default_flags() {
     'module' => 'answers_best_answer',
     'api_version' => 2,
   );
-  return $flags;
+
+  return $flag;
 }
 
 /**

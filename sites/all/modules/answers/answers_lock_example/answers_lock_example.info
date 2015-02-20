@@ -5,9 +5,9 @@ package = "Answers"
 php = "5.2.4"
 dependencies[] = "answers"
 
-; Information added by  packaging script on 2013-11-17
-version = "7.x-4.0-alpha1"
+; Information added by Drupal.org packaging script on 2015-01-25
+version = "7.x-4.0-rc1"
 core = "7.x"
 project = "answers"
-datestamp = "1384708705"
+datestamp = "1422152881"
 
