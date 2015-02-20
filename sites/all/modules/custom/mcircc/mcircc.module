@@ -17,6 +17,15 @@ function mcircc_menu() {
 }
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function mcircc_ctools_plugin_directory($owner, $plugin_type){
+  if ($owner == 'feeds_tamper' && $plugin_type == 'plugins') {
+    return 'plugins';
+  }
+}
+
+/**
 * Implements hook_entity_info_alter().
 */
 function mcircc_entity_info_alter(&$entity_info) {
@@ -63,10 +72,14 @@ function mcircc_form_alter(&$form, &$form_state, &$form_id) {
     case 'user_profile_form':
       //dpm($form);
       // Make the organisation element on the address field required.
-      $form['field_user_address'][LANGUAGE_NONE][0]['organisation_block']['organisation_name']['#required'] = TRUE;
+      //$form['field_user_address'][LANGUAGE_NONE][0]['organisation_block']['organisation_name']['#required'] = TRUE;
       // Change the links titles to "Academic Publish Articles" and "Michigan Experts Profile".
       $form['field_user_research_interests'][LANGUAGE_NONE][0]['#default_value']['title'] = 'Academic Published Articles';
       $form['field_user_research_interests'][LANGUAGE_NONE][1]['#default_value']['title'] = 'Michigan Experts Profile';
+      // Hide contact form settings from everyone but user #1.
+      if ($user->uid != 1) {
+        $form['contact']['#access'] = FALSE;
+      }
       break;
     case 'question_node_form':
       // On new nodes, check the notification box by default.
@@ -94,32 +107,8 @@ function mcircc_form_after_build($form, &$form_state) {
   //drupal_set_message($form['#form_id']);
   //dpm($form);
   
-  switch ($form['#form_id']) {
-    
-    case 'user_register_form':
-      
-      if (user_access('administer users')) {
-        $form['#prefix'] = isset($form['#prefix']) ? $form['#prefix'] : '';
-        $form['#prefix'] .= l(
-          'Click here to use the MCIRCC Administrator User Creation Form',
-          'admin/mcircc/user-add'
-        );
-      }
-      
-      
-      // When creating a new user, make a bunch of fields optional, and generate
-      // a random password.
-      // NOT WORKING AS EXPECTED
-      /*if ($form['#user']->uid == 0) {
-        $form['field_user_telephone'][LANGUAGE_NONE][0]['#required'] = FALSE;
-        $form['field_user_display_name'][LANGUAGE_NONE]['#required'] = FALSE;
-        $form['field_user_address'][LANGUAGE_NONE][0]['name_block']['first_name']['#required'] = FALSE;
-        $form['field_user_address'][LANGUAGE_NONE][0]['name_block']['last_name']['#required'] = FALSE;
-        
-      }*/
-      
-      break;
-  }
+  //switch ($form['#form_id']) {
+  //}
 
   return $form;
 }
@@ -169,7 +158,7 @@ function mcircc_block_view($delta = '') {
         INNER JOIN {field_data_field_user_display_name} fudm ON u.uid = fudm.entity_id
         LEFT OUTER JOIN {users_roles} ur ON u.uid = ur.uid
         WHERE ur.rid NOT IN (3,4,5) OR ur.rid IS NULL
-        ORDER BY u.created LIMIT 5;', 0, variable_get('user_block_whois_new_count', 5))->fetchAll();
+        ORDER BY u.created LIMIT 6;', 0, variable_get('user_block_whois_new_count', 5))->fetchAll();
       $items = array();
       foreach ($results as $result) {
         $items[] = l($result->field_user_display_name_value, "user/{$result->uid}");
@@ -275,7 +264,7 @@ function mcircc_user_display_name_with_credentials($row) {
     foreach ($row->field_field_user_credentials as $credential) {
       $credentials[] = $credential['rendered']['#markup'];
     }
-    $text .= ', ' . implode(',', $credentials);
+    $text .= ', ' . implode(', ', $credentials);
   }
   return $text;
 }

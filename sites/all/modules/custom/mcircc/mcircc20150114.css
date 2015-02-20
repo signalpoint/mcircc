@@ -422,7 +422,6 @@ body.page-members .view-member-directory .views-row {
 	margin-top: 15px;
 	margin-bottom: 5px;
 	padding-bottom: 10px;
-	clear: both;
 }
 body.page-members .view-member-directory .views-field.views-field-field-user-display-name {
 	padding: 4px 8px;
@@ -439,14 +438,8 @@ body.page-members .views-field.views-field-field-user-profile-picture {
 body.page-members .views-field-field-user-profile-picture div.field-content a img {
 	border-radius: 8px;
 }
-body.page-members .views-field.views-field-field-user-titles,
-body.page-members .views-field.views-field-field-user-address-organisation-name,
-body.page-members .views-field.views-field-field-user-biography,
-body.page-members .views-field.views-field-field-user-subjects,
-body.page-members .views-field-field-user-positions,
-body.page-members .views-field-mail,
-body.page-members .views-field-field-user-telephone {
-	margin: 0px 20px 0px 130px;
+body.page-members .views-field.views-field-field-user-titles, body.page-members .views-field.views-field-field-user-address-organisation-name, body.page-members .views-field.views-field-mail, body.page-members .views-field.views-field-field-user-telephone, body.page-members .views-field.views-field-field-user-biography, body.page-members .views-field.views-field-field-user-subjects {
+	margin: 8px 20px 4px 130px;
 }
 body.page-members .views-field.views-field-field-user-subjects {
 	text-transform: uppercase;
@@ -462,25 +455,15 @@ body.page-user .views-field-field-user-profile-picture div.field-content img {
 	width: 175px;
 	float:left;
 }
-body.page-user .views-field-created,
-body.page-user .views-field-field-user-display-name,
-body.page-user .views-field-field-user-display-name,
-body.page-user .views-field-field-user-address-organisation-name,
-body.page-user .views-field-field-user-positions {
+body.page-user .views-field-field-user-files, body.page-user .views-field-created, body.page-user .views-field-field-user-display-name, body.page-user .views-field-field-user-display-name, body.page-user .views-field-field-user-address-organisation-name {
 	margin:8px 20px 4px 195px;
 }
 
 body.page-user .views-field-field-user-display-name div.field-content {
 	color:#51a9e7;
 }
-body.page-user .views-field-field-user-display-name,
-body.page-user .views-field-field-user-files,
-body.page-user .views-field-field-user-address-organisation-name,
-body.page-user .views-field-field-user-telephone {
+body.page-user .views-field-field-user-display-name, body.page-user .views-field-field-user-files, body.page-user .views-field-field-user-address-organisation-name, body.page-user .views-field-field-user-telephone  {
 	margin-bottom:0;
-}
-body.page-user .views-field-field-user-positions {
-  margin-top: 0px;
 }
 body.page-user .views-field-created {
 	margin:0 20px 4px 195px;
@@ -828,7 +811,6 @@ body.page-news .region-content .node.node-teaser, body.page-events .region-conte
 	margin:0 5px 10px 10px;
 	border-bottom:1px dotted #ccc;
 	clear: both;
-	min-height: 64px;
 }
 #quicktabs-dashboard_news .content .view-content .item-list ul li .views-field-field-images img {
   float: left;
@@ -948,11 +930,7 @@ table th a.active {
   margin: 0em 0em 1em 0em;
 }
 .region-banner #block-mcircc-mcircc-user-welcome {
-  text-align: right;
-  max-width:960px;
-  margin-left:auto;
-  margin-right:auto;
-  font-size:.85em;
+  text-align: center;
 }
 #block-menu-menu-main-menu-anonymous h2 {
   margin: 0em !important;
@@ -976,82 +954,4 @@ body.page-events .region-content .view-events .field-name-field-times .field-lab
 }
 body.page-events .region-content .view-events ul.links.inline {
   margin-top: 4px;
-}
-body.page-dashboard .view-industry-news .views-row-first {
-  margin-top: 14px;
-}
-.view-industry-news .views-field-title-1 {
-  font-style: italic;
-  color: #333;
-  float: left;
-}
-.view-industry-news .views-field-timestamp {
-  float: left;
-  font-style: italic;
-  color: #333;
-  border-left: 1px solid #ccc;
-  padding-left: 0.5em;
-  margin-left: 0.5em;
-}
-.view-industry-news .views-field-description {
-  clear: both;
-  margin-bottom: 1em;
-}
-table#field-user-positions-values .autocomplete-deluxe-container {
-  border: 0px;
-}
-.view-member-directory .views-field-edit-node {
-  float: right;
-  padding-right: 8px;
-  padding-top: 2px;
-}
-body.page-members .view-member-directory .views-field-field-user-address-organisation-name {
-  margin-top: 0.6em;
-}
-body.page-members .view-member-directory .views-field-field-user-positions,
-body.page-members .view-member-directory .views-field-field-user-telephone {
-  margin-bottom: 4px;
-}
-.view-member-directory .views-field-field-user-positions .field-collection-item-field-user-positions,
-.view-member-directory .views-field-field-user-positions .field-name-field-title,
-body.page-user .views-field-field-user-positions .field-name-field-title,
-.view-member-directory .views-field-field-user-positions .field-name-field-department,
-body.page-user .views-field-field-user-positions .field-name-field-department
-{
-  float: left;
-  padding-right: 4px;
-}
-.view-member-directory .views-field-field-user-positions .clearfix:after,
-body.page-user .views-field-field-user-positions .clearfix:after,
-.view-member-directory .views-field-field-user-positions .clearfix:before,
-body.page-user .views-field-field-user-positions .clearfix:before {
-  clear: none;
-}
-.view-member-directory .views-field-mail {
-  margin-left: 10px;
-}
-.view-member-directory .views-field-field-user-positions .field-name-field-division-unit,
-body.page-user .views-field-field-user-positions .field-name-field-division-unit {
-  clear: right;
-}
-#edit-field-user-positions .field-name-field-title,
-#edit-field-user-positions .field-name-field-department,
-#edit-field-user-positions .field-name-field-division-unit {
-  float: left;
-}
-#edit-field-user-credentials-und .form-item {
-  float: left;
-  margin-right: 1em;
-}
-#edit-field-user-biography {
-  clear: both;
-}
-.region-sidebar-first .block .content, .region-sidebar-second .block .content {
-  margin-bottom: 1em !important;
-}
-.pane-activity-stream-content h2.pane-title {
-  margin-top: 0px;
-}
-.view-activity-stream-content .item-list ul li {
-  margin: 6px 0px 6px 0px;
 }
