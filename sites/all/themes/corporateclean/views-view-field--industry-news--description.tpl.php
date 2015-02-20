@@ -23,12 +23,10 @@
  */
 ?>
 <?php
-  //dpm($row);
-  if (arg(0) != 'dashboard') {
-    $output = mcircc_user_display_name_with_credentials($row);
-    if (isset($row->users_node_uid)) {
-      $output = l($output, "user/$row->users_node_uid");
-    }
-  }
-  print $output;
+  if (
+    isset($row->aggregator_feed_title) &&
+    $row->aggregator_feed_title == 'MedPage Today Critical Care'
+  ) { print str_replace('(MedPage Today) -- ','', $output); }
+  else { print $output; }
 ?>
+
